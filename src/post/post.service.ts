@@ -15,7 +15,7 @@ export class PostService {
         return await this.postRepository.find();
     }
 
-    async getOne( id: number): Promise<Post | string>{
+    async getOne( id: number){
         const post = await this.postRepository.findOne(id);
         if(!post) throw new NotFoundException('El Post no Existe')
         return post;
@@ -29,13 +29,13 @@ export class PostService {
 
     
     async editOne(id : number, dto: EditPostDto){
-        const post = await this.postRepository.findOne(id)
-        if(!post) throw new NotFoundException('El Post no Existe')
+        const post = await this.getOne(id)
         const editpost = Object.assign(post, dto)
         return await this.postRepository.save(editpost)
     }
 
     async deleteOne(id : number){
-        return await this.postRepository.delete(id)
+        const post = await this.getOne(id)
+        return await this.postRepository.remove(post)
     }
 }
