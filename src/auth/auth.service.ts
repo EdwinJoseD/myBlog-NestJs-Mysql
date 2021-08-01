@@ -16,19 +16,20 @@ export class AuthService {
 
         if(user && await compare(password, user.password)){
             const {password, ...rest} = user
-            return rest}
+            return rest
+        }
 
         return null;
     }
 
-    async login(user: User){
+    login(user: User){
         const {id, ...rest} = user
 
-        const payload = {user: id}
+        const payload = {sub: id}
 
         return {
             user,
-            accessToken: await this.jwtService.sign(payload)
+            accessToken: this.jwtService.sign(payload)
         }
     }
 }

@@ -7,8 +7,8 @@ import {
     IsArray,
     IsEnum,
   } from 'class-validator';
-  //import { AppRoles } from 'src/app.roles';
-  //import { EnumToString } from 'src/common/helpers/enumToString';
+  import { AppRoles } from '../../app.routes';
+  import { EnumToString } from '../../common/helpers';
   
   export class CreateUserDto {
     @IsOptional()
@@ -29,10 +29,10 @@ import {
     @MaxLength(128)
     password: string;
   
-/*     @IsArray()
+     @IsArray()
     @IsEnum(AppRoles, {
       each: true,
-      message: `must be a valid role value, ${EnumToString(AppRoles)}`,
+      message: `Los roles validos son : , ${EnumToString(AppRoles)}`,
     })
-    roles: string[]; */
+    roles: string[]; 
   }

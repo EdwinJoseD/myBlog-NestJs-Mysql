@@ -3,5 +3,6 @@ export enum PostCategory {
     'LIFESTYLE',
     'CODING',
     'SCIENCE',
-    'ART'
+    'ART',
+    'COMIC'
 }

@@ -26,9 +26,9 @@ import {
   
     @Column({ type: 'varchar', length: 128, nullable: false, select: false })
     password: string;
-/*   
+   
     @Column({ type: 'simple-array' })
-    roles: string[]; */
+    roles: string[];
   
     @Column({ type: 'bool', default: true })
     status: boolean;

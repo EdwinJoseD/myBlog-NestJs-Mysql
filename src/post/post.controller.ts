@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { Auth } from 'src/common/decorators';
 import { CreatePostDto, EditPostDto } from './dtos/index';
 import { PostService } from './post.service';
 
@@ -28,7 +29,7 @@ export class PostController {
         }
     }
 
-
+    @Auth()
     @Post()
     async createOne(
         @Body() dto: CreatePostDto){
@@ -36,6 +37,7 @@ export class PostController {
             return { Message: 'Post Creado', data}
     }
 
+    @Auth()
     @Patch(':id')
     async editOne(
         @Param('id', ParseIntPipe) id : number,
@@ -45,6 +47,7 @@ export class PostController {
         return { Message: 'Post editado', post}
     }
 
+    @Auth()
     @Delete(':id')
     async deleteOne(@Param('id', ParseIntPipe) id: number){
         const data =  await this.postService.deleteOne(id)
