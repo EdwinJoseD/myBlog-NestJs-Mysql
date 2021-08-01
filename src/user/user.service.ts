@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto, EditUserDto } from './dtos';
 import { User } from './entity'
+import { IUserFindOne } from './inteface';
 
 
 @Injectable()
@@ -42,5 +43,13 @@ export class UserService {
     async deleteOne(id: number){
         const user = await this.getOne(id)
         return await this.userRepository.remove(user)
+    }
+
+    async getEmail(data: IUserFindOne){
+        return await this.userRepository
+        .createQueryBuilder('user')
+        .where(data)
+        .addSelect('user.password')
+        .getOne()    
     }
 }
