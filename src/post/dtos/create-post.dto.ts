@@ -1,32 +1,32 @@
-import {  IsArray, IsBoolean, IsEnum, IsString, Length } from 'class-validator'
+import {  IsArray, IsBoolean, IsEnum, IsNotEmpty, IsOptional, IsString, Length } from 'class-validator'
 import { PostCategory } from '../enums/index'
 import  { EnumToString } from '../../common/helpers'
 
 export class CreatePostDto{
 
     @IsString()
-    @Length(5, 30)
-    title: string
-
+    title: string;
+  
     @IsString()
-    @Length(5, 20)
-    slug: string
-
+    slug: string;
+  
     @IsString()
-    excerpt: string
-
+    excerpt: string;
+  
     @IsString()
-    content: string
-
+    content: string;
+  
+    @IsNotEmpty()
     @IsEnum(PostCategory, {
-        message: `Opcion invalida, las opciones correctas son ${EnumToString(PostCategory)}`
+      message: `Invalid option. Valids options are ${EnumToString(PostCategory)}`,
     })
-    category: PostCategory
-
+    category: string;
+  
+    @IsString({ each: true })
     @IsArray()
-    @IsString({each:true})
-    tags: string[]
-
+    tags: string[];
+  
+    @IsOptional()
     @IsBoolean()
-    status: boolean
+    status: boolean;
 }

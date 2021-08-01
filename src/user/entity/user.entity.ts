@@ -8,7 +8,7 @@ import {
     OneToOne,
   } from 'typeorm';
   import { hash } from 'bcryptjs';
-  //import { Post } from 'src/post/entities';
+  import { Post } from '../../post/entity';
   
   @Entity('users')
   export class User {
@@ -44,11 +44,11 @@ import {
       }
       this.password = await hash(this.password, 10);
     } 
-/*   
+  
     @OneToOne(
       _ => Post,
       post => post.author,
       { cascade: true },
     )
-    posts: Post; */
+    posts: Post;
   }

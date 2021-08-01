@@ -3,11 +3,10 @@ import {
     PrimaryGeneratedColumn,
     Column,
     CreateDateColumn,
-   /*  ManyToOne,
-    JoinColumn,
-    UpdateDateColumn */
+    ManyToOne,
+    JoinColumn
   } from 'typeorm';
- // import { User } from 'src/user/entities';
+  import { User } from '../../user/entity';
   
   @Entity('posts')
   export class Post {
@@ -40,12 +39,12 @@ import {
   
     // @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
     // updatedAt: Date;
- /*  
+  
     @ManyToOne(
-     () => User,
-      user => user.posts,
-      { eager: true },
-    )
-    @JoinColumn({ name: 'author' })
-    author: User; */
+      () => User,
+       user => user.posts,
+       { eager: true },
+     )
+     @JoinColumn({ name: 'author' })
+     author: User; 
   }

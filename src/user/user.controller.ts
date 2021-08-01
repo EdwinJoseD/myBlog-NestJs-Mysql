@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Delete, Patch } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRolesBuilder, RolesBuilder } from 'nest-access-control';
-import { AppResource } from 'src/app.routes';
+import { AppResource, AppRoles } from 'src/app.routes';
 import { Auth, User } from '../common/decorators';
-import { CreateUserDto, EditUserDto } from './dtos';
+import { CreateUserDto, EditUserDto, UserRegistrationDto } from './dtos';
 import { User as userEntity} from './entity';
 import { UserService } from './user.service';
 
@@ -33,6 +33,15 @@ export class UserController {
         }
     }
 
+    @Post('register')
+    async publicRegistration(@Body() dto: UserRegistrationDto) {
+      const data = await this.userService.createOne({
+        ...dto,
+        roles: [AppRoles.AUTHOR],
+      });
+      return { message: 'Usuario creado', data };
+    }
+
     @Auth({
         possession: 'any',
         action: 'create',
@@ -55,21 +64,21 @@ export class UserController {
         @Param('id', ParseIntPipe) id : number,
         @Body() dto: EditUserDto,
         @User()user: userEntity){
-            let post;
+            let userEdit;
         if(this.rolesBuilder
             .can(user.roles)
             .updateAny(AppResource.USER)
             .granted
         ){
         //admin
-            post = await this.userService.editOne(id, dto)
+            userEdit = await this.userService.editOne(id, dto)
         }else{
             //autor
             
             const {roles, ...rest} = dto;
-            post = await this.userService.editOne(id, rest, user)
+            userEdit = await this.userService.editOne(id, rest, user)
         }
-        return { Message: 'Usuario editado', post}
+        return { Message: 'Usuario editado', userEdit}
     }
 
     @Auth({
