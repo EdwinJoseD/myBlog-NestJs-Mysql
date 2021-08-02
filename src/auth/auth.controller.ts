@@ -31,7 +31,6 @@ export class AuthController {
     async profile(
         @User() user: UserEntity
     ) { 
-        console.log(user)
         return {
             Message: 'Perfil del usuario',
             user

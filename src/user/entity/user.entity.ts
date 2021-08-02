@@ -15,10 +15,10 @@ import {
     @PrimaryGeneratedColumn()
     id: number;
   
-    @Column({ type: 'varchar', length: 255, nullable: true })
+    @Column({ type: 'varchar', length: 255, default:'', nullable: true })
     name: string;
   
-    @Column({ name: 'last_name', type: 'varchar', length: 255, nullable: true })
+    @Column({ name: 'last_name', type: 'varchar', default:'', length: 255, nullable: true })
     lastName: string;
   
     @Column({ type: 'varchar', length: 255, nullable: false })
@@ -36,7 +36,7 @@ import {
     @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
     createdAt: Date;
   
-     @BeforeInsert()
+    @BeforeInsert()
     @BeforeUpdate()
     async hashPassword() {
       if (!this.password) {

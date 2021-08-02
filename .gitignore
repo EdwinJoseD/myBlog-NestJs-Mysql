@@ -1,7 +1,9 @@
 # compiled output
 /dist
-.env
+.env*
+ormconfig.json
 /node_modules
+
 
 # Logs
 logs
